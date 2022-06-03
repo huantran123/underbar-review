@@ -196,20 +196,6 @@
     // Output: modified accumulator, same type as original accumulator
     // Constraints:
     // Edge cases: accumulator can be undefined; needs to set accumulator and then continue
-    // _.each(collection, function(item) {
-    //   if (accumulator === undefined) {
-    //     accumulator = item;
-    //     // return;
-    //   } else {
-    //     if (iterator(accumulator, item) === undefined) {
-    //       // return;
-    //     }
-    //     accumulator = iterator(accumulator, item);
-    //   }
-    // });
-
-    // // return accumulator
-    // return accumulator;
 
     if (accumulator === undefined) {
       accumulator = collection[0];
@@ -223,6 +209,9 @@
     }
     return accumulator;
   };
+
+
+  // PART II
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
@@ -240,6 +229,43 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    /// reduce collection against function, assume initial true, if function returns false then end right away and return false, else return result
+    var result = 0;
+    if (arguments.length < 2) {
+      // reduce function without iterator
+      _.reduce(collection, function(memo, item) {
+        if (item) {
+          result++;
+        }
+      }, 0);
+    } else {
+      _.reduce(collection, function(memo, item) {
+        if (iterator(item)) {
+          result++;
+        }
+      }, 0);
+    }
+
+    // // reduce and return false if its ever false, otherwise continue
+    // _.reduce(collection, function(memo, item) {
+    //   // if iterator(item) is false then return false and end function
+    //   if (arguments.length < 2) {
+    //     if (item) {
+    //       result++;
+    //     }
+    //   } else {
+    //     if (iterator(item)) {
+    //       result++;
+    //     }
+    //   }
+    // }, 0);
+
+    // only reach here if reduce function completes without returning false
+    return result === collection.length;
+
+    // return _.reduce(collection, function() {
+
+    // })
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
