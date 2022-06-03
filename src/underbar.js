@@ -186,6 +186,42 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    // init accumulator
+    // if (accumulator === undefined) {
+    //   accumulator = collection[0];
+    // }
+    // iterate through collection
+
+    // Input: collection, iterator, and the accumulator which is usually but not always a number
+    // Output: modified accumulator, same type as original accumulator
+    // Constraints:
+    // Edge cases: accumulator can be undefined; needs to set accumulator and then continue
+    // _.each(collection, function(item) {
+    //   if (accumulator === undefined) {
+    //     accumulator = item;
+    //     // return;
+    //   } else {
+    //     if (iterator(accumulator, item) === undefined) {
+    //       // return;
+    //     }
+    //     accumulator = iterator(accumulator, item);
+    //   }
+    // });
+
+    // // return accumulator
+    // return accumulator;
+
+    if (accumulator === undefined) {
+      accumulator = collection[0];
+      _.each(collection.slice(1), function(item) {
+        accumulator = iterator(accumulator, item);
+      });
+    } else {
+      _.each(collection, function(item) {
+        accumulator = iterator(accumulator, item);
+      });
+    }
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
