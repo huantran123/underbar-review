@@ -151,7 +151,7 @@
       it('should fail for a set containing no matching values', function() {
         // Replace this line with an `expect` statement that tests
         // the behavior described by the `it` string
-        throw new Error('This test is missing.');
+        expect(_.some([1, 3, 5, 7], isEven)).to.be.false;
       });
 
       it('should pass for a collection containing one matching value', function() {
