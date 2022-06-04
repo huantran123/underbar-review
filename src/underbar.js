@@ -272,6 +272,37 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    // use every and return false only if every is false
+
+    // // case without iterator
+    // if(!iterator){}
+    // // compare every item in collection
+    // // case with iterator
+    // if (iterator){
+
+    // }
+
+    // check if element is true or false.
+    var checkFalse = function(value) {
+      return value ? false : true;
+    };
+    if (arguments.length === 1) {
+      var itemArray = _.map(collection, checkFalse);
+      if ( _.contains(itemArray, false)) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      // if iterator
+      var valueArray = _.map(collection, iterator);
+      var itemArray = _.map(valueArray, checkFalse);
+      if ( _.contains(itemArray, false)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   };
 
 
@@ -332,6 +363,7 @@
       return result;
     };
   };
+
 
   // Memorize an expensive function's results by storing them. You may assume
   // that the function only takes primitives as arguments.
